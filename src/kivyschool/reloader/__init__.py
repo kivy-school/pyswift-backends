@@ -8,6 +8,11 @@ import shutil
 
 
 class KivyReloaderBackend(StandardBackend):
+    
+    def exclude_dependencies(self) -> list[str]:
+        return [
+            "kivy-reloader"
+        ]
 
     def copy_to_site_packages(self, site_path: FilePath, platform: str):
         with tempfile.TemporaryDirectory() as tmp:
