@@ -9,7 +9,7 @@ import shutil
 
 class KivyReloaderBackend(StandardBackend):
 
-    def copy_to_site_packages(self, site_path: FilePath):
+    def copy_to_site_packages(self, site_path: FilePath, platform: str):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = str(tmp)
             self.download_file(
