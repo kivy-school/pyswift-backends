@@ -44,7 +44,7 @@ class KivyReloaderBackend(StandardBackend):
             self.save_pyproject_toml(pyproject, pyp_path)
             
             self.pip_install(reloader_path, "-t", str(site_path))
-            
+            pip3("install", "kaki", "--no-deps", "-t", str(site_path))
             
         
 backend = KivyReloaderBackend()
