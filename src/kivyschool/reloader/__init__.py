@@ -32,7 +32,7 @@ class KivyReloaderBackend(StandardBackend):
             
             deps_copy = deps[:]
             to_remove = [
-                "cython", "buildozer", "kaki", "pip", "psutil", "toml"
+                "cython", "buildozer", "kaki", "pip", "psutil"
             ]
             
             for dep in deps_copy:
