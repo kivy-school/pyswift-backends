@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "PythonSwiftLink", email = "107263226+PythonSwiftLink@users.noreply.github.com" }
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "pip>=25.2",
     "requests>=2.32.4",
