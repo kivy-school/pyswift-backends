@@ -27,7 +27,7 @@ class KivyLauncherBackend(SDL2Backend):
         print("adding KivyLauncher packages")
         return {
             "KivyLauncher": {
-                "url": "https://github.com/KivySwiftPackages/KivyLauncher",
+                "url": "https://github.com/kivy-school/KivyLauncher",
                 "branch": "master"
             }
         }
@@ -51,7 +51,8 @@ class KivyLauncherBackend(SDL2Backend):
     def copy_to_site_packages(self, site_path: FilePath, platform: str):
         
         pips = [
-            "ios", "pyobjus"
+            #"ios",
+            "pyobjus"
         ]
         for pip in pips:
             self.pip_install(
@@ -59,7 +60,9 @@ class KivyLauncherBackend(SDL2Backend):
                 "--disable-pip-version-check",
                 f"--platform={platform}",
                 "--only-binary=:all:",
-                "--extra-index-url", "https://pypi.anaconda.org/pyswift/simple", 
+                "--extra-index-url", self.pyswift_simple, 
+                "--extra-index-url", self.beeware_simple,
+                "--extra-index-url", self.kivyschool_simple,
                 "--target", str(site_path)
             )
     

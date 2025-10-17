@@ -19,6 +19,10 @@ class CodePriority(IntEnum):
     
 
 class StandardBackend(PSBackend):
+
+    beeware_simple = "https://pypi.anaconda.org/beeware/simple"
+    pyswift_simple = "https://pypi.anaconda.org/pyswift/simple"
+    kivyschool_simple = "https://pypi.anaconda.org/kivyschool/simple" 
     
     def __init__(self):
         # pass self so swift side can access py side of the class

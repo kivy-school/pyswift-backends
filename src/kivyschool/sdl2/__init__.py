@@ -32,7 +32,7 @@ class SDL2Backend(StandardBackend):
         if not sdl2_frameworks.exists:
             self.pip_install(
                 "kivy_sdl2", 
-                "--extra-index-url", "https://pypi.anaconda.org/pyswift/simple",
+                "--extra-index-url", self.kivyschool_simple,
                 "-t", str(sdl2_frameworks)
             )
         

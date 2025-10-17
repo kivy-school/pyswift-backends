@@ -32,7 +32,7 @@ class Kivy3LauncherBackend(SDL3Backend):
         print("adding KivyLauncher packages")
         return {
             "Kivy3Launcher": {
-                "url": "https://github.com/KivySwiftPackages/Kivy3Launcher",
+                "url": "https://github.com/kivy-school/KivyLauncher",
                 "branch": "master"
             }
         }
@@ -40,7 +40,7 @@ class Kivy3LauncherBackend(SDL3Backend):
     def target_dependencies(self, target_type: str):
         deps = super().target_dependencies(target_type)
         deps.append(
-            {"package": "Kivy3Launcher", "products": ["KivyLauncher"]}
+            {"package": "KivyLauncher", "products": ["Kivy3Launcher"]}
         )
         
         return deps
@@ -56,7 +56,9 @@ class Kivy3LauncherBackend(SDL3Backend):
     def copy_to_site_packages(self, site_path: FilePath, platform: str):
         
         pips = [
-            "kivy==3.0.0.dev0", "ios", "pyobjus"
+            "kivy==3.0.0.dev0", 
+            #"ios", 
+            "pyobjus"
         ]
         for pip in pips:
             self.pip_install(
@@ -65,9 +67,9 @@ class Kivy3LauncherBackend(SDL3Backend):
                 "--disable-pip-version-check",
                 f"--platform={platform}",
                 "--only-binary=:all:",
-                "--extra-index-url", "https://pypi.anaconda.org/pyswift/simple", 
-                "--extra-index-url", "https://pypi.anaconda.org/beeware/simple",
-                "--extra-index-url", "https://pypi.anaconda.org/kivyschool/simple",
+                "--extra-index-url", self.pyswift_simple, 
+                "--extra-index-url", self.beeware_simple,
+                "--extra-index-url", self.kivyschool_simple,
                 "--python-version=313",
                 "--target", str(site_path)
             )

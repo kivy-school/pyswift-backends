@@ -36,7 +36,7 @@ class SDL3Backend(StandardBackend):
         if not sdl_frameworks.exists:
             self.pip_install(
                 "kivy_sdl3_angle", 
-                "--extra-index-url", "https://pypi.anaconda.org/pyswift/simple",
+                "--extra-index-url", self.kivyschool_simple,
                 "-t", str(sdl_frameworks)
             )
         
