@@ -34,6 +34,10 @@ class Kivy3LauncherBackend(SDL3Backend):
             "Kivy3Launcher": {
                 "url": "https://github.com/kivy-school/KivyLauncher",
                 "branch": "master"
+            },
+            "Kivy_iOS_Module": {
+                "url": "https://github.com/kivy-school/Kivy_iOS_Module",
+                "branch": "master"
             }
         }
     
@@ -42,21 +46,24 @@ class Kivy3LauncherBackend(SDL3Backend):
         deps.append(
             {"package": "KivyLauncher", "products": ["Kivy3Launcher"]}
         )
+        deps.append(
+            {"package": "Kivy_iOS_Module", "products": ["Kivy_iOS_Module"]}
+        )
         
         return deps
     
     def wrapper_imports(self, target_type: str) -> list[dict[str, object]]:
         return [
             {
-                "libraries": ["KivyLauncher"],
-                "modules": []
+                "libraries": ["Kivy3Launcher", "Kivy_iOS_Module"],
+                "modules": ["ios"]
             }
         ]
     
     def copy_to_site_packages(self, site_path: FilePath, platform: str):
         
         pips = [
-            "kivy==3.0.0.dev0", 
+            "kivy>=3.0.0.dev0", 
             #"ios", 
             "pyobjus"
         ]

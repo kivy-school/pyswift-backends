@@ -1,14 +1,18 @@
-from backend_tools import FilePath, PSBackend, CodeBlock
-import pip
+from backend_tools import FilePath, PSBackend, CodeBlock, PSProcess
+#import pip
 import requests
 import tarfile
 import zipfile
 import toml
 import sh
+from os import environ
 from enum import IntEnum
+import subprocess
 
-pip3 = sh.Command("/Users/Shared/psproject/hostpython3/bin/pip3")
+host_python = environ.get("HOST_PYTHON_ROOT", "/Library/Frameworks/Python.framework/Versions/3.13")
 
+
+# print(pip3)
 class CodePriority(IntEnum):
     IMPORTS = 0
     POST_IMPORTS = 1
@@ -19,10 +23,6 @@ class CodePriority(IntEnum):
     
 
 class StandardBackend(PSBackend):
-
-    beeware_simple = "https://pypi.anaconda.org/beeware/simple"
-    pyswift_simple = "https://pypi.anaconda.org/pyswift/simple"
-    kivyschool_simple = "https://pypi.anaconda.org/kivyschool/simple" 
     
     def __init__(self):
         # pass self so swift side can access py side of the class
@@ -81,11 +81,17 @@ class StandardBackend(PSBackend):
     
     # internal usage
     
-    def pip_install(self, *args: str):
-        print(pip3("install", *args))
-    
-    def pip_download(self, *args: str):
-        print(pip3("download", *args))
+    def pip_install(self, *args: str, **kwargs: str):
+        #
+        try:
+            pip3 = PSProcess(f"{host_python}/bin/pip3")
+            pip3.run(["install", *args], kwargs)
+        except Exception as e:
+            print(f"Error occurred: {e}")
+
+    def pip_download(self, *args: str, **kwargs: str):
+        pip3 = PSProcess(f"{host_python}/bin/pip3")
+        pip3.run(["download", *args], kwargs)
     
     def download_file(self, url: str, save_path: str):
         try:

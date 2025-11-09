@@ -29,13 +29,20 @@ class KivyLauncherBackend(SDL2Backend):
             "KivyLauncher": {
                 "url": "https://github.com/kivy-school/KivyLauncher",
                 "branch": "master"
+            },
+            "Kivy_iOS_Module": {
+                "url": "https://github.com/kivy-school/Kivy_iOS_Module",
+                "branch": "master"
             }
         }
     
     def target_dependencies(self, target_type: str):
         deps = super().target_dependencies(target_type)
         deps.append(
-            {"package": "KivyLauncher", "products": ["KivyLauncher"]}
+            {"package": "KivyLauncher", "products": ["KivyLauncher"]},
+        )
+        deps.append(
+            {"package": "Kivy_iOS_Module", "products": ["Kivy_iOS_Module"]}
         )
         
         return deps
@@ -43,8 +50,8 @@ class KivyLauncherBackend(SDL2Backend):
     def wrapper_imports(self, target_type: str) -> list[dict[str, object]]:
         return [
             {
-                "libraries": ["KivyLauncher"],
-                "modules": []
+                "libraries": ["KivyLauncher", "Kivy_iOS_Module"],
+                "modules": ["ios"]
             }
         ]
     
