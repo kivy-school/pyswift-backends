@@ -56,7 +56,7 @@ class Kivy3LauncherBackend(SDL3Backend):
         return [
             {
                 "libraries": ["Kivy3Launcher", "Kivy_iOS_Module"],
-                "modules": ["ios"]
+                "modules": [".ios"]
             }
         ]
     

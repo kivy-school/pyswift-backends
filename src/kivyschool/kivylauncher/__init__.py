@@ -51,7 +51,7 @@ class KivyLauncherBackend(SDL2Backend):
         return [
             {
                 "libraries": ["KivyLauncher", "Kivy_iOS_Module"],
-                "modules": ["ios"]
+                "modules": [".ios"]
             }
         ]
     
