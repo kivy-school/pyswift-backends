@@ -1,4 +1,4 @@
-from backend_tools import FilePath, PSBackend, CodeBlock, PSProcess
+from backend_tools import FilePath, PSBackend, CodeBlock, PSProcess, task
 #import pip
 import requests
 import tarfile
@@ -87,15 +87,14 @@ class StandardBackend(PSBackend):
     
     def pip_install(self, *args: str, **kwargs: str):
         #
+        print("Installing pip package:", args)
         try:
-            pip3 = PSProcess(f"{host_python}/bin/pip3")
-            pip3.run(["install", *args], kwargs)
+            task(f"{host_python}/bin/pip3", ["install", *args], kwargs )
         except Exception as e:
             print(f"Error occurred: {e}")
 
     def pip_download(self, *args: str, **kwargs: str):
-        pip3 = PSProcess(f"{host_python}/bin/pip3")
-        pip3.run(["download", *args], kwargs)
+        task(f"{host_python}/bin/pip3",["download", *args], kwargs)
     
     def download_file(self, url: str, save_path: str):
         try:
