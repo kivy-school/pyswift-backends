@@ -37,8 +37,8 @@ wrapper_imports:
       - .ios
 
 modify_main_swift:
-  type: shell
-  shell: python
-  file: main_swift.py
+  - type: shell
+    shell: python
+    file: main_swift.py
       
       

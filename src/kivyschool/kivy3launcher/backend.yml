@@ -44,8 +44,8 @@ will_modify_main_swift:
   all: true
 
 modify_main_swift:
-  type: shell
-  shell: python
-  file: main_swift.py
+  - type: shell
+    shell: python
+    file: main_swift.py
       
       
