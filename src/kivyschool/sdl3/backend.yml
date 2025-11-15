@@ -32,8 +32,8 @@ target_dependencies:
     platformFilter: iOS
 
 install:
-  type: shell
-  shell: python
-  file: install.py
+  - type: shell
+    shell: python
+    file: install.py
 
 
