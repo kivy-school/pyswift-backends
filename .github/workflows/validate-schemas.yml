@@ -25,6 +25,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyyaml jsonschema
         
+    - name: Download backend schema from PSProject
+      run: |
+        curl -o backend-schema.json https://raw.githubusercontent.com/Py-Swift/PSProject/master/backend-schema.json
+        
     - name: Validate backend schemas
       run: |
         python - <<'EOF'
