@@ -1,0 +1,11 @@
+{
+  "yaml.schemas": {
+    "./backend-schema.json": [
+      "**/backend.yml",
+      "**/backend.yaml"
+    ]
+  },
+  "yaml.validate": true,
+  "yaml.completion": true,
+  "yaml.hover": true
+}

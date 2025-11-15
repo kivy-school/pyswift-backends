@@ -1,0 +1,51 @@
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Py-Swift/PSProject/master/backend-schema.json
+name: KivyLauncher
+dependencies:
+  - sdl2
+functions:
+  frameworks: []
+  target_dependencies:
+    - type: package
+      reference: KivyLauncher
+      products:
+        - KivyLauncher
+      
+    - type: package
+      reference: Kivy_iOS_Module
+      products:
+        - Kivy_iOS_Module
+      platformFilter: iOS
+
+  # copy_to_site_packages:
+  #   type: shell
+  #   shell: python
+  #   file: site_packages_install.py
+
+  packages:
+    KivyLauncher:
+      url: https://github.com/kivy-school/KivyLauncher
+      versionRequirement:
+        branch: master
+    Kivy_iOS_Module:
+      url: https://github.com/kivy-school/Kivy_iOS_Module
+      versionRequirement:
+        branch: master
+  
+  wrapper_imports:
+    all:
+      libraries:
+        - KivyLauncher
+      modules: []
+    iOS:
+      libraries:
+        - Kivy_iOS_Module
+      modules:
+        - .ios
+
+  modify_main_swift:
+    type: shell
+    shell: python
+    file: main_swift.py
+      
+      

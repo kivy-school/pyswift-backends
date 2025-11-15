@@ -1,0 +1,39 @@
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Py-Swift/PSProject/master/backend-schema.json
+name: SDL3
+backend_dependencies: []
+
+frameworks:
+  - ${PS_SUPPORT}/SDL3.xcframework
+  - ${PS_SUPPORT}/SDL3_image.xcframework
+  - ${PS_SUPPORT}/SDL3_mixer.xcframework
+  - ${PS_SUPPORT}/SDL3_ttf.xcframework
+  - ${PS_SUPPORT}/libEGL.xcframework
+  - ${PS_SUPPORT}/libGLESv2.xcframework
+
+target_dependencies:
+  - type: framework
+    reference: Support/SDL3.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/SDL3_image.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/SDL3_mixer.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/SDL3_ttf.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/libEGL.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/libGLESv2.xcframework
+    platformFilter: iOS
+
+install:
+  type: shell
+  shell: python
+  file: install.py
+
+

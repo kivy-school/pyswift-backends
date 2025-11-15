@@ -1,0 +1,30 @@
+
+name: SDL2
+backend_dependencies: []
+
+frameworks:
+  - ${PS_SUPPORT}/SDL2.xcframework
+  - ${PS_SUPPORT}/SDL2_image.xcframework
+  - ${PS_SUPPORT}/SDL2_mixer.xcframework
+  - ${PS_SUPPORT}/SDL2_ttf.xcframework
+
+target_dependencies:
+  - type: framework
+    reference: Support/SDL2.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/SDL2_image.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/SDL2_mixer.xcframework
+    platformFilter: iOS
+  - type: framework
+    reference: Support/SDL2_ttf.xcframework
+    platformFilter: iOS
+
+install:
+  type: shell
+  shell: python
+  file: install.py
+
+

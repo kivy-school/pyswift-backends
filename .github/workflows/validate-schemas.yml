@@ -1,0 +1,89 @@
+name: Validate Backend Schemas
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml jsonschema
+        
+    - name: Validate backend schemas
+      run: |
+        python - <<'EOF'
+        import json
+        import yaml
+        from pathlib import Path
+        from jsonschema import validate, ValidationError, Draft7Validator
+        import sys
+        
+        # Load the schema
+        schema_path = Path('backend-schema.json')
+        with open(schema_path, 'r') as f:
+            schema = json.load(f)
+        
+        # Find all backend.yml files
+        backend_files = list(Path('src').rglob('backend.yml')) + list(Path('src').rglob('backend.yaml'))
+        
+        if not backend_files:
+            print("❌ No backend.yml files found!")
+            sys.exit(1)
+        
+        print(f"Found {len(backend_files)} backend file(s) to validate:\n")
+        
+        errors = []
+        for backend_file in backend_files:
+            print(f"Validating: {backend_file}")
+            
+            try:
+                with open(backend_file, 'r') as f:
+                    backend_config = yaml.safe_load(f)
+                
+                # Validate against schema
+                validator = Draft7Validator(schema)
+                validation_errors = list(validator.iter_errors(backend_config))
+                
+                if validation_errors:
+                    print(f"  ❌ FAILED - {len(validation_errors)} error(s)")
+                    for error in validation_errors:
+                        path = " -> ".join(str(p) for p in error.path) if error.path else "root"
+                        print(f"     • {path}: {error.message}")
+                        errors.append((backend_file, error))
+                else:
+                    print(f"  ✅ PASSED")
+                    
+            except yaml.YAMLError as e:
+                print(f"  ❌ YAML parsing error: {e}")
+                errors.append((backend_file, e))
+            except Exception as e:
+                print(f"  ❌ Unexpected error: {e}")
+                errors.append((backend_file, e))
+            
+            print()
+        
+        # Summary
+        print("=" * 60)
+        if errors:
+            print(f"❌ Validation FAILED: {len(errors)} error(s) found across {len(set(e[0] for e in errors))} file(s)")
+            sys.exit(1)
+        else:
+            print(f"✅ All {len(backend_files)} backend file(s) are valid!")
+            sys.exit(0)
+        EOF

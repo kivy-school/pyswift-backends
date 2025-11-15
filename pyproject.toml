@@ -18,11 +18,16 @@ dependencies = [
 requires = ["uv_build>=0.8.4,<0.9.0"]
 build-backend = "uv_build"
 
-[tool.uv.sources]
-backend-tools = { git = "https://github.com/Py-Swift/PSBackend" }
+[tool.uv]
+package = true
+
+[tool.setuptools]
+packages = { find = { where = ["src"] } }
+
+[tool.setuptools.package-data]
+kivyschool = ["**/*.yml", "**/*.yaml", "**/*.sh", "**/*.py"]
 
 [dependency-groups]
 dev = [
-    "backend-tools",
     "pip>=25.2",
 ]
