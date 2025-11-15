@@ -6,12 +6,10 @@ frameworks: []
 packages:
   KivyLauncher:
     url: https://github.com/kivy-school/KivyLauncher
-    versionRequirement:
-      branch: master
+    branch: master
   Kivy_iOS_Module:
     url: https://github.com/kivy-school/Kivy_iOS_Module
-    versionRequirement:
-      branch: master
+    branch: master
 
 target_dependencies:
   - type: package

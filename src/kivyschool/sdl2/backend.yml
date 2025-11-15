@@ -1,4 +1,5 @@
 
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Py-Swift/PSProject/master/backend-schema.json
 name: SDL2
 backend_dependencies: []
 
